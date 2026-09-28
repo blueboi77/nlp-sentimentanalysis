@@ -1,6 +1,8 @@
-# Sentiment Analysis Platform
+# NLP Mini Project: Product Review Sentiment Analysis
 
-An e-commerce customer review sentiment analysis web application powered by a Python backend and machine learning pipeline trained on product review corpora.
+An e-commerce customer review sentiment analysis web application powered by a Python backend and machine learning pipeline trained on product review dataset.
+
+![Screenshot of the UI](/static/screenshot.png)
 
 ## Features
 
