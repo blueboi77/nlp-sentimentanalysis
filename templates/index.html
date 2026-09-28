@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sentiment analysis</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header with cardboard accent -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-badge">NLP</div>
+        <h1 class="brand-title">sentiment analysis</h1>
+      </div>
+
+      <!-- Top Right Corner Action Icons: PPT, GitHub, Report (in that order) -->
+      <nav class="top-nav-links" aria-label="Project Quick Links">
+        <!-- 1. PPT -->
+        <a href="ppt" class="icon-btn" title="Presentation (PPT)" target="_blank" rel="noopener noreferrer" aria-label="Presentation">
+          <svg class="nav-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Screen / Projector / Slide Presentation Icon -->
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+            <path d="M7 8h5"></path>
+            <path d="M7 11h3"></path>
+          </svg>
+        </a>
+
+        <!-- 2. GitHub Link -->
+        <a href="https://github.com/blueboi077/nlp-sentimentanalysis" class="icon-btn" title="GitHub Repository" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg class="nav-icon" viewBox="0 0 24 24" width="20" height="20" fill="#ffffff" stroke="none">
+            <!-- GitHub Mark Icon -->
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+
+        <!-- 3. Report -->
+        <a href="report" class="icon-btn" title="Project Report" target="_blank" rel="noopener noreferrer" aria-label="Report">
+          <svg class="nav-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Document / Analytics Report Icon -->
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container with White Background -->
+  <main class="main-container">
+    
+    <!-- Top Introduction Banner -->
+    <section class="intro-section">
+      <h2 class="section-heading">E-Commerce Review Sentiment Analyzer</h2>
+      <p class="section-subheading">
+        Evaluate customer feedback instantly using machine learning trained on e-commerce product reviews. 
+        Type a review to analyze single sentiment, or upload a <code>.txt</code> file to instantly inspect each line and view the overall average sentiment.
+      </p>
+    </section>
+
+    <!-- UNIFIED SINGLE BOX FOR BOTH ROUTES -->
+    <section class="card squircle-card unified-card" id="unified-input-box">
+      <div class="card-header">
+        <span class="card-step-badge">★</span>
+        <div class="card-header-text">
+          <h3 class="card-title">Review Sentiment Ingestion</h3>
+          <p class="card-description">
+            Type or paste a product review to analyze, or upload a <code>.txt</code> file with reviews on separate lines to immediately launch batch processing.
+          </p>
+        </div>
+      </div>
+
+      <!-- Unified Form & Drop Target -->
+      <form id="unified-form" class="form-group">
+        
+        <!-- Textarea with integrated drag-over indicator -->
+        <div class="input-wrapper squircle-dropzone" id="textarea-drop-zone">
+          <textarea 
+            id="review-input" 
+            class="squircle-input squircle-textarea" 
+            rows="5" 
+            placeholder="Type or paste a customer product review here, or drop a .txt review file anywhere in this box..."
+          ></textarea>
+
+          <!-- Hidden File Input -->
+          <input type="file" id="file-input" accept=".txt" class="file-input-hidden" />
+        </div>
+
+        <!-- Sample review chips & helpers -->
+        <div class="sample-chips-row">
+          <span class="chips-label">Quick samples:</span>
+          <button type="button" class="squircle-chip positive-chip" data-sample="Fantastic quality! Exceeded my expectations, works perfectly and easy to use.">Positive Review</button>
+          <button type="button" class="squircle-chip neutral-chip" data-sample="Average product. Does what it is supposed to do, neither good nor bad.">Neutral Review</button>
+          <button type="button" class="squircle-chip negative-chip" data-sample="Broke easily on the first day. Customer service was awful and unhelpful.">Negative Review</button>
+        </div>
+
+        <!-- Unified Actions Toolbar -->
+        <div class="unified-actions-toolbar">
+          <div class="primary-actions">
+            <!-- 1. Analyze typed text -->
+            <button type="submit" id="analyze-btn" class="squircle-btn squircle-btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <span>Analyze Sentiment</span>
+            </button>
+
+            <!-- 2. Instantly upload & analyze file -->
+            <button type="button" id="browse-btn" class="squircle-btn squircle-btn-outline" title="Upload a .txt file with reviews on separate lines">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <span>Upload .txt File</span>
+            </button>
+          </div>
+
+          <div class="secondary-actions">
+            <button type="button" id="load-sample-btn" class="squircle-btn squircle-btn-secondary" title="Immediately load sample multi-line reviews">
+              <span>Load Sample .txt</span>
+            </button>
+            <a href="/api/sample-txt" class="squircle-btn squircle-btn-secondary" download="sample_reviews.txt" title="Download sample_reviews.txt">
+              Download .txt
+            </a>
+            <button type="button" id="clear-btn" class="squircle-btn squircle-btn-secondary">Clear</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Loading Spinner for File Analysis -->
+      <div id="file-loading-indicator" class="loading-spinner-box hidden">
+        <div class="spinner"></div>
+        <p>Analyzing individual reviews and calculating overall average sentiment...</p>
+      </div>
+
+    </section>
+
+    <!-- SINGLE REVIEW RESULT BOX -->
+    <section id="single-result-container" class="card squircle-card result-box hidden">
+      <div class="result-header-row">
+        <div>
+          <span class="subtext">Sentiment Verdict</span>
+          <div id="result-sentiment-badge" class="sentiment-badge">--</div>
+        </div>
+        <div class="stars-block">
+          <span class="subtext">Estimated Rating</span>
+          <div id="result-stars" class="stars-display">★ ★ ★ ★ ★</div>
+          <span id="result-stars-val" class="stars-val">4.5 / 5.0</span>
+        </div>
+      </div>
+
+      <!-- Polarity Meter -->
+      <div class="meter-wrapper">
+        <div class="meter-labels">
+          <span>Negative (-1.0)</span>
+          <span id="polarity-score-val" class="meter-mid-val">Polarity: +0.00</span>
+          <span>Positive (+1.0)</span>
+        </div>
+        <div class="meter-track squircle-track">
+          <div id="polarity-fill" class="meter-fill" style="width: 50%;"></div>
+        </div>
+      </div>
+
+      <!-- Confidence & Probabilities -->
+      <div class="probabilities-grid">
+        <div class="prob-card squircle-prob">
+          <span class="prob-title">Confidence</span>
+          <span id="result-confidence" class="prob-val">0%</span>
+        </div>
+        <div class="prob-card squircle-prob">
+          <span class="prob-title">Positive</span>
+          <span id="prob-positive" class="prob-val">0%</span>
+        </div>
+        <div class="prob-card squircle-prob">
+          <span class="prob-title">Neutral</span>
+          <span id="prob-neutral" class="prob-val">0%</span>
+        </div>
+        <div class="prob-card squircle-prob">
+          <span class="prob-title">Negative</span>
+          <span id="prob-negative" class="prob-val">0%</span>
+        </div>
+      </div>
+
+      <!-- Key terms highlight -->
+      <div id="key-cues-section" class="cues-section hidden">
+        <span class="subtext">Detected Sentiment Keywords:</span>
+        <div id="key-cues-list" class="cues-tags"></div>
+      </div>
+
+      <!-- DEBUG MODE: LIVE MODEL CORRECTION & TRAINING PANEL -->
+      <div id="debug-feedback-panel" class="debug-panel squircle-box hidden">
+        <div class="debug-panel-header">
+          <div class="debug-panel-title">
+            <span class="debug-dot"></span>
+            <strong>Debug Mode: Live Model Correction</strong>
+          </div>
+          <span class="debug-badge" id="feedback-counter-badge">Feedback Learned: 0</span>
+        </div>
+        <p class="debug-panel-desc">
+          Manually specify the correct star rating and sentiment for this review. The model will incorporate this feedback and retrain in real-time.
+        </p>
+        <div class="debug-controls-row">
+          <div class="rating-picker-wrapper">
+            <span class="control-label">Rating:</span>
+            <div class="star-rating-picker" id="star-rating-picker">
+              <button type="button" class="star-pick-btn active" data-val="1" title="1 Star">★</button>
+              <button type="button" class="star-pick-btn active" data-val="2" title="2 Stars">★</button>
+              <button type="button" class="star-pick-btn active" data-val="3" title="3 Stars">★</button>
+              <button type="button" class="star-pick-btn active" data-val="4" title="4 Stars">★</button>
+              <button type="button" class="star-pick-btn active" data-val="5" title="5 Stars">★</button>
+            </div>
+            <span id="star-picker-val" class="picker-val">5 / 5</span>
+          </div>
+
+          <div class="sentiment-picker-wrapper">
+            <span class="control-label">Label:</span>
+            <div class="sentiment-pill-group">
+              <button type="button" class="squircle-pill pill-pick" data-sentiment="Negative">Negative</button>
+              <button type="button" class="squircle-pill pill-pick" data-sentiment="Neutral">Neutral</button>
+              <button type="button" class="squircle-pill pill-pick active" data-sentiment="Positive">Positive</button>
+            </div>
+          </div>
+
+          <button type="button" id="teach-model-btn" class="squircle-btn squircle-btn-primary">
+            <span>⚡ Teach Model</span>
+          </button>
+        </div>
+        <div id="debug-feedback-msg" class="debug-feedback-toast hidden"></div>
+      </div>
+    </section>
+
+    <!-- BATCH RESULTS & LINE-BY-LINE FILE ANALYSIS BOX -->
+    <section id="batch-results-section" class="card squircle-card batch-section hidden">
+      <div class="batch-header">
+        <div>
+          <h3 class="card-title">File Sentiment Analysis Summary</h3>
+          <p id="batch-filename-display" class="card-description">Results for uploaded file</p>
+        </div>
+        <div class="batch-export-actions">
+          <button id="export-csv-btn" class="squircle-btn squircle-btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Export to CSV
+          </button>
+        </div>
+      </div>
+
+      <!-- High-level Metric Cards -->
+      <div class="summary-cards-row">
+        <!-- Metric 1: Total Reviews -->
+        <div class="metric-card squircle-metric">
+          <span class="metric-label">Total Reviews Analyzed</span>
+          <span id="metric-total-count" class="metric-number">0</span>
+          <span class="metric-caption">Non-empty lines processed</span>
+        </div>
+
+        <!-- Metric 2: Overall Average Sentiment (Key Requirement!) -->
+        <div class="metric-card squircle-metric highlight-metric">
+          <span class="metric-label">Overall Average Sentiment</span>
+          <div class="metric-verdict-row">
+            <span id="metric-overall-sentiment" class="sentiment-badge badge-lg">--</span>
+          </div>
+          <span id="metric-avg-polarity" class="metric-caption">Avg Polarity: +0.00 | 4.0 ★</span>
+        </div>
+
+        <!-- Metric 3: Positive Reviews -->
+        <div class="metric-card squircle-metric positive-metric">
+          <span class="metric-label">Positive Reviews</span>
+          <span id="metric-pos-count" class="metric-number text-pos">0</span>
+          <span id="metric-pos-pct" class="metric-caption">0.0% of total</span>
+        </div>
+
+        <!-- Metric 4: Neutral Reviews -->
+        <div class="metric-card squircle-metric neutral-metric">
+          <span class="metric-label">Neutral Reviews</span>
+          <span id="metric-neu-count" class="metric-number text-neu">0</span>
+          <span id="metric-neu-pct" class="metric-caption">0.0% of total</span>
+        </div>
+
+        <!-- Metric 5: Negative Reviews -->
+        <div class="metric-card squircle-metric negative-metric">
+          <span class="metric-label">Negative Reviews</span>
+          <span id="metric-neg-count" class="metric-number text-neg">0</span>
+          <span id="metric-neg-pct" class="metric-caption">0.0% of total</span>
+        </div>
+      </div>
+
+      <!-- Proportion Visual Progress Bar -->
+      <div class="distribution-bar-wrapper">
+        <div class="distribution-bar squircle-dist-bar">
+          <div id="dist-bar-pos" class="dist-pos" style="width: 33.3%;" title="Positive"></div>
+          <div id="dist-bar-neu" class="dist-neu" style="width: 33.3%;" title="Neutral"></div>
+          <div id="dist-bar-neg" class="dist-neg" style="width: 33.3%;" title="Negative"></div>
+        </div>
+        <div class="distribution-legend">
+          <span class="legend-item"><span class="legend-dot dot-pos"></span> Positive</span>
+          <span class="legend-item"><span class="legend-dot dot-neu"></span> Neutral</span>
+          <span class="legend-item"><span class="legend-dot dot-neg"></span> Negative</span>
+        </div>
+      </div>
+
+      <!-- Filter and Search Row -->
+      <div class="table-toolbar">
+        <div class="filter-btn-group">
+          <button type="button" class="squircle-pill active" data-filter="all">All (<span id="filter-count-all">0</span>)</button>
+          <button type="button" class="squircle-pill" data-filter="Positive">Positive (<span id="filter-count-pos">0</span>)</button>
+          <button type="button" class="squircle-pill" data-filter="Neutral">Neutral (<span id="filter-count-neu">0</span>)</button>
+          <button type="button" class="squircle-pill" data-filter="Negative">Negative (<span id="filter-count-neg">0</span>)</button>
+        </div>
+        <div class="search-input-wrapper">
+          <input type="text" id="table-search" class="squircle-input search-input" placeholder="Search within review texts...">
+        </div>
+      </div>
+
+      <!-- Individual Review Lines Table -->
+      <div class="table-responsive squircle-table-container">
+        <table class="reviews-table" id="reviews-table">
+          <thead>
+            <tr>
+              <th style="width: 70px;">Line #</th>
+              <th>Review Text</th>
+              <th style="width: 130px;">Sentiment</th>
+              <th style="width: 100px;">Polarity</th>
+              <th style="width: 110px;">Stars</th>
+              <th style="width: 110px;">Confidence</th>
+            </tr>
+          </thead>
+          <tbody id="reviews-tbody">
+            <!-- Dynamically populated rows -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sticky Cardboard Accent Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <span class="footer-brand">sentiment analysis</span>
+        <span class="footer-separator">&bull;</span>
+        <span class="footer-desc">E-Commerce NLP Platform</span>
+      </div>
+      <div class="footer-right">
+        <span class="footer-meta">Trained on product review corpora &bull; Live training enabled</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Debug / Live Training Switch in Bottom-Right Corner -->
+  <aside class="debug-toggle-widget" id="debug-widget">
+    <label class="debug-switch-container" title="Toggle Live Training / Debug Mode">
+      <span class="debug-icon">⚙️</span>
+      <span class="debug-switch-label">Debug Mode</span>
+      <input type="checkbox" id="debug-toggle-checkbox" class="debug-checkbox">
+      <span class="squircle-toggle-track">
+        <span class="squircle-toggle-thumb"></span>
+      </span>
+    </label>
+  </aside>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
