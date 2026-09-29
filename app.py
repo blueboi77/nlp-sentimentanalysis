@@ -136,7 +136,8 @@ def health():
 def serveppt():
     """Serve either the local ppt or send to google slides"""
     try:
-         return os.startfile("presentation.pptx")
+         os.startfile("presentation.pptx")
+         return jsonify({"status": "success"})
     except:
         return redirect("https://docs.google.com/presentation/d/19GMcBICGNVm4ydrjVryXyhJIoDDVpPsZCGZb3d62_EU/edit?usp=sharing")
 
@@ -145,7 +146,8 @@ def serveppt():
 def servereport():
     """Serve either the local docx or send to google docs"""
     try:
-        return os.startfile("report.docx")
+        os.startfile("report.docx")
+        return jsonify({"status": "success"})
     except:
         return redirect("https://docs.google.com/document/d/1qjUkwyCw_-foVY5ZcyRnH4ctMhVS4SMWK0zPYIG9l8U/edit?usp=sharing")
 
